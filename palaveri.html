@@ -19,6 +19,46 @@
     <i class="fa fa-bars"></i>
   </a>
 </div>
+
+<div id="vastaus" style="padding-left: 16px;">
+</div>
+
+<script>
+fetch('https://sakukettunen.github.io/json.github.io/palaveri.json')
+  .then(function (response) {
+    return response.json();
+  })
+  .then(function (data) {
+    kerro(data);
+  })
+  .catch(function (error) {
+    document.getElementById("vastaus").innerHTML =
+      "<p>Tietoa ei pystytä hakemaan</p>";
+  });
+
+function kerro(data){
+  var teksti = "";
+  teksti = teksti + "<h1>" + data.yritys + "</h1>";
+  teksti = teksti + "<h3>Yhteystiedot</h3>";
+  teksti = teksti + "<p>Osoite: " + data.yhteystiedot.osoite + "</p>";
+  teksti = teksti + "<p>Puhelin: " + data.yhteystiedot.puhelin + "</p>";
+  teksti = teksti + "<p>Sähköposti: " + data.yhteystiedot.email + "</p>";
+  teksti = teksti + "<h3>Tuotteet</h3><ul>";
+  for (var i = 0; i < data.tuotteet.length; i++) {
+    teksti = teksti + "<li>" + data.tuotteet[i] + "</li>";
+  }
+  teksti = teksti + "</ul>";
+
+  teksti = teksti + "<h3>Henkilökunta</h3><ul>";
+  for (var i = 0; i < data.henkilokunta.length; i++) {
+    teksti = teksti + "<li>" + data.henkilokunta[i].nimi + ": " +
+              data.henkilokunta[i].titteli + "</li>";
+  }
+  teksti = teksti + "</ul>";
+
+  document.getElementById("vastaus").innerHTML = teksti;
+}
+</script>
     
 </body>
 </html>
