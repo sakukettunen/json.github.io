@@ -24,7 +24,7 @@
 </div>
 
 <script>
-fetch('https://sakukettunen.github.io/json.github.io/palaveri.json')
+fetch('https://sakukettunen.github.io/digitekniikat.github.io/palaveri.json')
   .then(function (response) {
     return response.json();
   })
@@ -38,27 +38,26 @@ fetch('https://sakukettunen.github.io/json.github.io/palaveri.json')
 
 function kerro(data){
   var teksti = "";
-  teksti = teksti + "<h1>" + data.yritys + "</h1>";
-  teksti = teksti + "<h3>Yhteystiedot</h3>";
-  teksti = teksti + "<p>Osoite: " + data.yhteystiedot.osoite + "</p>";
-  teksti = teksti + "<p>Puhelin: " + data.yhteystiedot.puhelin + "</p>";
-  teksti = teksti + "<p>Sähköposti: " + data.yhteystiedot.email + "</p>";
-  teksti = teksti + "<h3>Tuotteet</h3><ul>";
-  for (var i = 0; i < data.tuotteet.length; i++) {
-    teksti = teksti + "<li>" + data.tuotteet[i] + "</li>";
-  }
-  teksti = teksti + "</ul>";
+  teksti = teksti + "<h1>" + data.agenda + "</h1>";
+  teksti = teksti + "<h2>" + data.aihe + "</h2>";
+  teksti = teksti + "<p><strong>Osallistujien lukumäärä:</strong> " + data.osallistujien_lukumaarä + "</p>";
 
-  teksti = teksti + "<h3>Henkilökunta</h3><ul>";
-  for (var i = 0; i < data.henkilokunta.length; i++) {
-    teksti = teksti + "<li>" + data.henkilokunta[i].nimi + ": " +
-              data.henkilokunta[i].titteli + "</li>";
+  teksti = teksti + "<h3>Osallistujat</h3><ul>";
+  for (var i = 0; i < data.osallistujat.length; i++) {
+    teksti += "<li>" + data.osallistujat[i] + "</li>";
   }
   teksti = teksti + "</ul>";
+  
+  teksti = teksti + "<p><strong>Paikka:</strong> " + data.paikka + "</p>";
+  teksti = teksti + "<p><strong>Alkamisaika:</strong> " + data.alkamisaika + "</p>";
+  teksti = teksti + "<p><strong>Kesto (min):</strong> " + data.kesto_minuutit + "</p>";
+  teksti = teksti + "<p><strong>Kesto (ISO):</strong> " + data.kesto_iso + "</p>";
 
   document.getElementById("vastaus").innerHTML = teksti;
 }
 </script>
+
+
     
 </body>
 </html>

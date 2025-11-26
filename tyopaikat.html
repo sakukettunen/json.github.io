@@ -19,6 +19,45 @@
     <i class="fa fa-bars"></i>
   </a>
 </div>
+
+<div id="vastaus" style="padding-left: 16px;">
+</div>
+
+<script>
+fetch('http://gis.vantaa.fi/rest/tyopaikat/v1/Tekninen ala')
+  .then(function (response) {
+    return response.json();
+  })
+  .then(function (data) {
+    kerro(data);
+  })
+  .catch(function (error) {
+    document.getElementById("vastaus").innerHTML =
+      "<p>Tietoa ei pystytä hakemaan</p>";
+  });
+
+function kerro(data){
+  var teksti = "";
+  for (var i = 0; i < data.length; i++) {
+    var t = data[i];
+    teksti = teksti + "<h2>ID: " + t.id + "</h2>";
+    teksti = teksti + "<p><strong>Organisaatio:</strong> " + t.organisaatio + "</p>";
+    teksti = teksti + "<p><strong>Ammattiala:</strong> " + t.ammattiala + "</p>";
+    teksti = teksti + "<p><strong>Työtehtävä:</strong> " + t.tyotehtava + "</p>";
+    teksti = teksti + "<p><strong>Työavain:</strong> <a href='" + t.tyoavain + "'>" + t.tyoavain + "</a></p>";
+    teksti = teksti + "<p><strong>Osoite:</strong> " + t.osoite + "</p>";
+    teksti = teksti + "<p><strong>Haku päättyy:</strong> " + t.haku_paattyy_pvm + "</p>";
+    teksti = teksti + "<p><strong>X:</strong> " + t.x + "</p>";
+    teksti = teksti + "<p><strong>Y:</strong> " + t.y + "</p>";
+    teksti = teksti + "<p><strong>Linkki:</strong> <a href='" + t.linkki + "'>" + t.linkki + "</a></p>";
+
+    teksti = teksti + "</div><hr>";
+  }
+
+  document.getElementById("vastaus").innerHTML = teksti;
+}
+</script>
+
     
 </body>
 </html>
